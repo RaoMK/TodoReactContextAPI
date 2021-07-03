@@ -1,25 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useReducer } from "react";
+import TodoContext from "./context/TodoContext";
+import TodoReducer from "./context/reducer";
+import TodoForm from "./components/TodoForm";
+import Todos from "./components/Todos";
 
-function App() {
+export default function App() {
+  const [todos, dispatch] = useReducer(TodoReducer, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <TodoContext.Provider value={{ todos, dispatch }}>
+      <div className="bg-black text-white h-screen w-screen items-center justify-center text-center px-60 py-20">
+        <h1 className="text-4xl">Todo App with Context API</h1>
+        <TodoForm />
+        <Todos />
+      </div>
+    </TodoContext.Provider>
   );
 }
-
-export default App;
